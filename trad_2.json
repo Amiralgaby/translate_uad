@@ -1,0 +1,9 @@
+{
+  "id": "com.sonyericsson.android.omacp",
+  "list": "Oem",
+  "description": "omacp = provisionnement du client OMA. Il s'agit d'un protocole spécifié par l'Open Mobile Alliance (OMA).\nIl est utilisé par l'opérateur pour envoyer des \"SMS de configuration\" qui peuvent configurer les paramètres réseau (tels que l'APN).\nDans mon cas, c'était automatique et je n'ai jamais eu besoin de messages de configuration. Je suis à peu près sûr qu'en France ce forfait ne sert à rien.\nPeut-être que c'est utile si les opérateurs changent leur APN... mais vous pouvez toujours le changer manuellement, ce n'est pas difficile.\nCes \"SMS de configuration\" spéciaux peuvent être abusés :\nhttps://www.zdnet.fr/actualites/les-smartphones-samsung-huawei-lg-et-sony-vulnerables-a-des-attaques-par-provisioning-39890045.htm\nhttps://www.csoonline.com/article/3435729/sms-based-provisioning-messages-enable-advanced-phishing-on-android-phones.html",
+  "dependencies": null,
+  "neededBy": null,
+  "labels": null,
+  "removal": "Advanced"
+}
