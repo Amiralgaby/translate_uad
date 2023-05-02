@@ -28,16 +28,18 @@ if [ -n "$2" ]; then
 	tgt="$2"
 fi
 
+
+traduire_soi_meme=false
 i=0
 translate_temp=""
 
-cat "$1" | jq -r '.[] | .description' | while read -r line ; 
+jq -r '.[] | .description' "$1" | while read -r line ; 
 do
 	if [ -z "$line" ]
 	then
 		echo "$i"
 
-		if [ -n "$translate_temp" ] 
+		if [ -n "$translate_temp" ] && [ "$traduire_soi_meme" = false ]
 		then
 			description_translated="${translate_temp::-2}" # on enlève le \n final.
 
@@ -45,17 +47,35 @@ do
 
 			# update du fichier
 
-			jq ".[$i]"' | .description = "'"${description_translated//\"/\\\"}"'"' "$1" > "trad_$i.json"
+			jq ".[$i]"' | .description = "'"${description_translated//\"/\\\"}"'"' "$1" > "./translate_part/trad_$i.json"
 		fi
-		
-		i=$((i+1))
 
+		if [ "$traduire_soi_meme" = true ]; then
+			echo "traduire_soi_meme la description n°$i" >> à_traduire_soi_même.txt
+		fi
+
+		i=$((i+1))
+		
 		# echo "Lignes $i totales"
 
 		translate_temp=""
-		
+		traduire_soi_meme=false
 		echo "#######"
 	else
+
+		# pas besoin de faire un appel si je dois traduire soi-même
+		if [ "$traduire_soi_meme" = true ]; then
+			continue
+		fi
+
+		# on doit tester si le string fait plus de 5000 caractères
+		# car c'est une contrainte de l'API
+
+		if [ "${#line}" -ge 5000 ]; then
+			echo -e "Numéro $i\n$temp\n#####################" >> à_traduire_soi_même.txt
+			traduire_soi_meme=true
+		fi
+
 		temp="$(translate_internal "$line" "$tgt")"
 
 		# echo "$temp"
