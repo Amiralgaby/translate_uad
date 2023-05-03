@@ -20,7 +20,9 @@ translate_internal()  {
 	if [ "${#1}" -ge 5000 ]; then
 		echo "plus de 5000 caractères"
 	else
-		deep-translator translate -src en -tgt "$2" --text "$1" | sed -n '/Translated text:/,$p' | sed '1d'
+		c="$(dt -trans "google" -src en -tg "$2" -txt "$1"| sed '1d;2d')"
+		
+		echo "${c#Translation result: }"
 	fi
 }
 
