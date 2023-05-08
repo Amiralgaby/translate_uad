@@ -1,9 +1,0 @@
-{
-  "id": "com.sonyericsson.android.addoncamera.artfilter",
-  "list": "Oem",
-  "description": "Effet créatif Sony\nOffre des options pour divers effets de virage photographiques dans l'application appareil photo Sony.\nJe ne suis pas sûr à 100% pour celui-ci. Quelqu'un peut-il confirmer ?",
-  "dependencies": null,
-  "neededBy": null,
-  "labels": null,
-  "removal": "Advanced"
-}

@@ -42,9 +42,26 @@ TRANS=""
 
 total_index=$(jq length "$1")
 
+reprendre_a=0
+
+if [ -d "translate_part" ]; then
+
+	# on essaye de savoir où on s'est arrêté
+	
+	reprendre_a=$(ls translate_part/* -c -1 | head -n 1 | sed -nE 's/^.*trad_([0-9]+)\.json/\1/p')
+
+	if [ -z "$reprendre_a" ]; then
+		reprendre_a=0
+	else
+		((reprendre_a++))
+	fi
+fi
+
 echo "nbLigne à faire : $total_index"
 
-for (( i=0 ; i < total_index ; i++)); do
+echo "on reprend à $reprendre_a"
+
+for (( i=reprendre_a ; i < total_index ; i++)); do
 	TRANS=""
 	
 	while read -r line; 
